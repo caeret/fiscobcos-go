@@ -258,7 +258,7 @@ func (c *Connection) CallContext(ctx context.Context, result interface{}, method
 	case resp.Error != nil:
 		return resp.Error
 	case len(resp.Result) == 0:
-		// logrus.Printf("result is null, %+v, err:%+v \n", resp, err)
+		//logging.Warn(fmt.Sprintf("result is null, %+v, err:%+v", resp, err))
 		return ErrNoResult
 	default:
 		return json.Unmarshal(resp.Result, &result)
@@ -363,7 +363,7 @@ func (c *Connection) reconnect(ctx context.Context) error {
 	}
 	newconn, err := c.reconnectFunc(ctx)
 	if err != nil {
-		// logrus.Trace("RPC client reconnect failed", "err", err)
+		//logging.Warn("RPC client reconnect failed", "error", err)
 		return err
 	}
 	select {

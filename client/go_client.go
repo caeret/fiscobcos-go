@@ -32,7 +32,6 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/sirupsen/logrus"
 )
 
 // Client defines typed wrappers for the Ethereum RPC API.
@@ -134,7 +133,7 @@ func DialContext(ctx context.Context, config *conf.Config) (*Client, error) {
 	} else {
 		privateKey, err := crypto.ToECDSA(config.PrivateKey)
 		if err != nil {
-			logrus.Fatal(err)
+			return nil, err
 		}
 		client.auth = bind.NewKeyedTransactor(privateKey)
 	}
